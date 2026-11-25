@@ -1,0 +1,18 @@
+node_modules/
+dist/
+.env
+.env.*
+auth.db
+auth.db-shm
+auth.db-wal
+*.db
+*.db-shm
+*.db-wal
+*.log
+.DS_Store
+
+# AI / Trellis local tooling
+.claude/
+.cursor/
+.trellis/
+AGENTS.md
