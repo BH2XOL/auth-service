@@ -24,7 +24,8 @@ export function getLockRemainingMinutes(ip: string, now: number = Date.now()): n
 /** Increment failure count for an IP and lock it after reaching maxLoginFailures. */
 export function recordLoginFailure(ip: string, now: number = Date.now()): void {
   const fail = loginFailures.get(ip);
-  const nextCount = (fail && fail.lockUntil <= now ? 0 : fail?.count || 0) + 1;
+  const lockExpired = Boolean(fail && fail.lockUntil > 0 && fail.lockUntil <= now);
+  const nextCount = (lockExpired ? 0 : fail?.count || 0) + 1;
   loginFailures.set(ip, {
     count: nextCount,
     lockUntil: nextCount >= config.maxLoginFailures ? now + config.lockDurationMs : 0,
